@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\OrderStatus;
 
 return new class extends Migration
 {
@@ -18,13 +18,18 @@ return new class extends Migration
 
             // The State Machine Column
             $table->string('status')->default(OrderStatus::PENDING->value);
+            $table->string('category')->default('General');
 
             // High-precision coordinates for your Flutter Map
             $table->decimal('origin_lat', 10, 8);
             $table->decimal('origin_lng', 11, 8);
+            $table->string('origin_address')->nullable();
+
             $table->decimal('dest_lat', 10, 8);
             $table->decimal('dest_lng', 11, 8);
+            $table->string('dest_address')->nullable();
 
+            $table->decimal('distance', 8, 2)->nullable();
             $table->decimal('fee', 8, 2);
             $table->timestamps();
         });
