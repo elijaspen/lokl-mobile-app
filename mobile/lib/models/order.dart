@@ -1,8 +1,11 @@
 class Order {
   final int id;
   final String trackingCode;
+  final String type;
   final String status;
   final double fee;
+  final String category; // Added category
+  final String? description;
   final LocationPoint origin;
   final LocationPoint destination;
   final String createdAt;
@@ -10,21 +13,25 @@ class Order {
   Order({
     required this.id,
     required this.trackingCode,
+    required this.type,
     required this.status,
     required this.fee,
+    required this.category,
+    this.description,
     required this.origin,
     required this.destination,
     required this.createdAt,
   });
 
-  // The Factory Method: Converts raw JSON into a typed Order object
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json['id'],
       trackingCode: json['trackingCode'],
+      type: json['type'] ?? 'delivery',
       status: json['status'],
-      // We cast 'fee' to double safely even if it arrives as an int
       fee: (json['fee'] as num).toDouble(),
+      category: json['category'] ?? 'General',
+      description: json['description'],
       origin: LocationPoint.fromJson(json['origin']),
       destination: LocationPoint.fromJson(json['destination']),
       createdAt: json['createdAt'],
