@@ -13,7 +13,9 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          _buildSophisticatedBackground(context),
+          Positioned.fill(
+            child: IgnorePointer(child: _buildSophisticatedBackground(context)),
+          ),
           SingleChildScrollView(
             child: Column(
               children: [
@@ -36,49 +38,47 @@ class LandingScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Positioned.fill(
-      child: Stack(
-        children: [
-          Positioned(
-            top: -100,
-            right: -50,
-            child: Container(
-              width: 400,
-              height: 400,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    theme.colorScheme.primary.withValues(
-                      alpha: isDark ? 0.15 : 0.08,
-                    ),
-                    theme.colorScheme.primary.withValues(alpha: 0),
-                  ],
-                ),
+    return Stack(
+      children: [
+        Positioned(
+          top: -100,
+          right: -50,
+          child: Container(
+            width: 400,
+            height: 400,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  theme.colorScheme.primary.withValues(
+                    alpha: isDark ? 0.15 : 0.08,
+                  ),
+                  theme.colorScheme.primary.withValues(alpha: 0),
+                ],
               ),
             ),
           ),
-          Positioned(
-            top: 200,
-            left: -100,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    theme.colorScheme.secondary.withValues(
-                      alpha: isDark ? 0.1 : 0.05,
-                    ),
-                    theme.colorScheme.secondary.withValues(alpha: 0),
-                  ],
-                ),
+        ),
+        Positioned(
+          top: 200,
+          left: -100,
+          child: Container(
+            width: 300,
+            height: 300,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  theme.colorScheme.secondary.withValues(
+                    alpha: isDark ? 0.1 : 0.05,
+                  ),
+                  theme.colorScheme.secondary.withValues(alpha: 0),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

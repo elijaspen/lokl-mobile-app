@@ -11,15 +11,23 @@ class AuthService extends ChangeNotifier {
   String? _token;
   bool _isInitialized = false;
   bool _showRegister = false;
+  bool _showAuth = false;
 
   UserModel? get user => _user;
   String? get token => _token;
   bool get isAuthenticated => _token != null;
   bool get isInitialized => _isInitialized;
   bool get showRegister => _showRegister;
+  bool get showAuth => _showAuth;
 
   void setRegistrationView(bool show) {
     _showRegister = show;
+    _showAuth = true;
+    notifyListeners();
+  }
+
+  void setShowAuth(bool show) {
+    _showAuth = show;
     notifyListeners();
   }
 
@@ -95,6 +103,8 @@ if (response.statusCode == 200) {
     
     _user = null;
     _token = null;
+    _showAuth = false;
+    _showRegister = false;
     notifyListeners();
   }
 

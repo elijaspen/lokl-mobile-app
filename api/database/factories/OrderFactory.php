@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\OrderStatus;
+use App\Enums\OrderType;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,12 +20,18 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'tracking_no' => 'LL-' . strtoupper(fake()->bothify('??-####')),
+            'tracking_no' => 'LL-'.strtoupper(fake()->bothify('??-####')),
+            'type' => fake()->randomElement(OrderType::class),
             'status' => OrderStatus::PENDING,
-            'origin_lat' => fake()->latitude(10.7, 10.8),
-            'origin_lng' => fake()->longitude(122.5, 122.6),
-            'dest_lat' => fake()->latitude(10.7, 10.8),
-            'dest_lng' => fake()->longitude(122.5, 122.6),
+            'category' => fake()->randomElement(['Food', 'Document', 'Parcel']),
+            'description' => fake()->sentence(),
+            'origin_lat' => fake()->latitude(14.5, 14.6),
+            'origin_lng' => fake()->longitude(120.9, 121.1),
+            'origin_address' => fake()->streetAddress().', '.fake()->city(),
+            'dest_lat' => fake()->latitude(14.5, 14.6),
+            'dest_lng' => fake()->longitude(120.9, 121.1),
+            'dest_address' => fake()->streetAddress().', '.fake()->city(),
+            'distance' => fake()->randomFloat(2, 0.5, 10),
             'fee' => fake()->randomFloat(2, 40, 200),
         ];
     }
