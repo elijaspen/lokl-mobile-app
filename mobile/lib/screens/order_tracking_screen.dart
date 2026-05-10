@@ -1,86 +1,60 @@
 import 'package:flutter/material.dart';
-import '../core/theme/colors.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
   const OrderTrackingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
-      backgroundColor: SwiftDropColors.background,
       appBar: AppBar(
-        backgroundColor: SwiftDropColors.background,
-        elevation: 0,
-        leading: const Icon(Icons.menu, color: SwiftDropColors.textMain),
+        leading: const Icon(LucideIcons.menu),
         title: const Text(
-          'LokalLink',
-          style: TextStyle(
-            color: SwiftDropColors.textMain,
-            fontWeight: FontWeight.bold,
-            letterSpacing: -1,
-          ),
+          'LOKL',
+          style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: -1),
         ),
         centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              radius: 16,
-              backgroundColor: SwiftDropColors.border,
-              backgroundImage: NetworkImage(
-                'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100',
-              ),
-            ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: CircleAvatar(
+            radius: 16,
+            backgroundColor: theme.colorScheme.surface,
+            child: Icon(LucideIcons.user, size: 16, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
           ),
-        ],
+        ),
+      ],
       ),
       body: Column(
         children: [
-          // Map Section
+          // Map Section (Placeholder)
           Expanded(
             flex: 6,
             child: Container(
               width: double.infinity,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                image: const DecorationImage(
                   image: NetworkImage(
                     'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1000',
                   ),
                   fit: BoxFit.cover,
-                  opacity: 0.3,
+                  opacity: 0.2,
                 ),
               ),
-              child: const Stack(
+              child: Stack(
                 children: [
-                  // Destination Pin
                   Positioned(
                     top: 100,
                     right: 60,
-                    child: Icon(
-                      Icons.home,
-                      color: SwiftDropColors.accentBlue,
-                      size: 32,
-                    ),
+                    child: Icon(LucideIcons.home, color: theme.colorScheme.primary, size: 32),
                   ),
-                  // Rider Pin
-                  Positioned(
+                  const Positioned(
                     top: 200,
                     left: 150,
-                    child: Icon(
-                      Icons.local_shipping,
-                      color: SwiftDropColors.primary,
-                      size: 28,
-                    ),
-                  ),
-                  // Origin Pin
-                  Positioned(
-                    bottom: 120,
-                    left: 80,
-                    child: Icon(
-                      Icons.restaurant,
-                      color: SwiftDropColors.textMuted,
-                      size: 24,
-                    ),
+                    child: Icon(LucideIcons.bike, color: Colors.amber, size: 28),
                   ),
                 ],
               ),
@@ -90,10 +64,10 @@ class OrderTrackingScreen extends StatelessWidget {
           // Tracking Details Card
           Container(
             padding: const EdgeInsets.all(24.0),
-            decoration: const BoxDecoration(
-              color: SwiftDropColors.surface,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-              border: Border(top: BorderSide(color: SwiftDropColors.border)),
+            decoration: BoxDecoration(
+              color: theme.cardTheme.color,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+              border: Border(top: BorderSide(color: theme.colorScheme.outline)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -102,89 +76,67 @@ class OrderTrackingScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'In Transit',
-                          style: TextStyle(
-                            color: SwiftDropColors.textMain,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Arriving in 12–18 mins',
-                          style: TextStyle(
-                            color: SwiftDropColors.textMuted,
-                            fontSize: 14,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: SwiftDropColors.surfaceContainer,
+                        color: theme.colorScheme.surface,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: SwiftDropColors.border),
+                        border: Border.all(color: theme.colorScheme.outline),
                       ),
-                      child: const Text(
+                      child: Text(
                         '#ORD-8821',
-                        style: TextStyle(
-                          color: SwiftDropColors.textMuted,
-                          fontSize: 12,
-                        ),
+                        style: theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 32),
-
-                // Progress Indicator
                 const _ProgressIndicator(),
-
                 const SizedBox(height: 32),
 
                 // Rider Profile
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: SwiftDropColors.border),
+                    border: Border.all(color: theme.colorScheme.outline),
                   ),
                   child: Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 24,
-                        backgroundColor: SwiftDropColors.surfaceContainer,
-                        child: Icon(
-                          Icons.person,
-                          color: SwiftDropColors.textMuted,
-                        ),
+                        backgroundColor: theme.colorScheme.surface,
+                        child: Icon(LucideIcons.user, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
                       ),
                       const SizedBox(width: 12),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Eli Jaspen',
-                              style: TextStyle(
-                                color: SwiftDropColors.textMain,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             Text(
                               '4.9 • Electric Bike',
-                              style: TextStyle(
-                                color: SwiftDropColors.textMuted,
-                                fontSize: 12,
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -192,12 +144,10 @@ class OrderTrackingScreen extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
-                          Icons.phone,
-                          color: SwiftDropColors.textMain,
-                        ),
+                        icon: const Icon(LucideIcons.phone),
                         style: IconButton.styleFrom(
-                          backgroundColor: SwiftDropColors.surfaceContainer,
+                          backgroundColor: theme.colorScheme.surface,
+                          side: BorderSide(color: theme.colorScheme.outline),
                         ),
                       ),
                     ],
@@ -205,38 +155,17 @@ class OrderTrackingScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
-
-                // Actions
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: SwiftDropColors.primary,
-                      foregroundColor: SwiftDropColors.onPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Text(
-                      'Contact Rider',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Contact Rider'),
                 ),
-
                 const SizedBox(height: 16),
                 Center(
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Cancel Order',
-                      style: TextStyle(color: SwiftDropColors.textMuted),
+                      style: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                     ),
                   ),
                 ),
@@ -257,41 +186,39 @@ class _ProgressIndicator extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildStep(Icons.check, 'Placed', isCompleted: true),
-        _buildConnector(isCompleted: true),
-        _buildStep(Icons.check, 'Assigned', isCompleted: true),
-        _buildConnector(isCompleted: false),
-        _buildStep(Icons.local_shipping, 'Transit', isActive: true),
-        _buildConnector(isCompleted: false),
-        _buildStep(Icons.inventory_2, 'Arrived', isInactive: true),
+        _buildStep(context, LucideIcons.check, 'Placed', isCompleted: true),
+        _buildConnector(context, isCompleted: true),
+        _buildStep(context, LucideIcons.check, 'Assigned', isCompleted: true),
+        _buildConnector(context, isCompleted: false),
+        _buildStep(context, LucideIcons.bike, 'Transit', isActive: true),
+        _buildConnector(context, isCompleted: false),
+        _buildStep(context, LucideIcons.package, 'Arrived', isInactive: true),
       ],
     );
   }
 
   Widget _buildStep(
+    BuildContext context,
     IconData icon,
     String label, {
     bool isCompleted = false,
     bool isActive = false,
     bool isInactive = false,
   }) {
-    Color color = isInactive
-        ? SwiftDropColors.textMuted
-        : SwiftDropColors.textMain;
-    if (isCompleted || isActive) color = SwiftDropColors.textMain;
+    final theme = Theme.of(context);
+    Color color = isInactive ? theme.colorScheme.outline : theme.colorScheme.onSurface;
+    if (isCompleted || isActive) color = theme.colorScheme.primary;
 
     return Column(
       children: [
         Container(
-          width: 32,
-          height: 32,
+          width: 36,
+          height: 36,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.transparent,
+            color: isActive ? theme.colorScheme.primary.withValues(alpha: 0.1) : Colors.transparent,
             border: Border.all(
-              color: isInactive
-                  ? SwiftDropColors.border
-                  : SwiftDropColors.textMain,
+              color: isInactive ? theme.colorScheme.outline : (isActive ? theme.colorScheme.primary : theme.colorScheme.outline),
               width: 1.5,
             ),
           ),
@@ -300,11 +227,8 @@ class _ProgressIndicator extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(
-            color: isInactive
-                ? SwiftDropColors.textMuted
-                : SwiftDropColors.textMain,
-            fontSize: 11,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: isInactive ? theme.colorScheme.onSurface.withValues(alpha: 0.4) : theme.colorScheme.onSurface,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -312,12 +236,13 @@ class _ProgressIndicator extends StatelessWidget {
     );
   }
 
-  Widget _buildConnector({required bool isCompleted}) {
+  Widget _buildConnector(BuildContext context, {required bool isCompleted}) {
+    final theme = Theme.of(context);
     return Expanded(
       child: Container(
-        height: 1,
+        height: 2,
         margin: const EdgeInsets.only(bottom: 24),
-        color: isCompleted ? SwiftDropColors.textMain : SwiftDropColors.border,
+        color: isCompleted ? theme.colorScheme.primary : theme.colorScheme.outline,
       ),
     );
   }
