@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/elijxspxn/Library/Application Support/Herd/bin/php85",
+            "args": [
+                "/Users/elijxspxn/Herd/lokallink-api/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
